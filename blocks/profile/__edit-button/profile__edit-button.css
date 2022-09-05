@@ -1,0 +1,10 @@
+.profile__edit-button {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  background-image: url(../../../images/profile/Edit__Button.svg);
+  background-size: cover;
+  align-self: flex-start;
+  margin-left: 18px;
+  margin-top: 37px;
+}
