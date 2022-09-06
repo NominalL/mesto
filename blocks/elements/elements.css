@@ -6,3 +6,11 @@
   row-gap: 20px;
   margin-bottom: 67px;
 }
+
+@media screen and (max-width: 768px) {
+  .elements {
+    grid-template-columns: repeat(2, minmax(100px, 266px));
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: center
+  }
+}

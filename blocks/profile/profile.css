@@ -4,3 +4,9 @@
   position: relative;
   margin-bottom: 51px;
 }
+
+@media screen and (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+  }
+}

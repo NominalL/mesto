@@ -1,9 +1,18 @@
 .profile__add-button {
-  position: absolute;
+  margin-left: 27.6%;
   width: 150px;
   height: 50px;
   cursor: pointer;
-  background-image: url(../../../images/profile/Add_Button.svg);
+  background-image: url(../../../images/profile/Add_Button_mini.svg);
   background-size: cover;
-  right: 0;
+}
+
+@media screen and (max-width:768px) {
+  .profile__add-button {
+    width: 326px;
+    height: 58px;
+    background-image: url(../../../images/profile/Add_Button.svg);
+    margin: 0;
+    margin-top: 33px;
+  }
 }
