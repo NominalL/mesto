@@ -1,17 +1,16 @@
-.profile__status {
-  margin: 0;
+.footer__copy {
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  grid-area: status;
+  margin: 0;
+  color: #545454;
 }
 
 @media screen and (max-width:320px) {
-  .profile__status {
+  .footer__copy {
     font-size: 14px;
     line-height: 17px;
-    text-align: center;
-    margin-right: 28px;
+    margin-left: 19px;
   }
 }

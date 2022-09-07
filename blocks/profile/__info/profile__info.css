@@ -12,5 +12,12 @@
 @media screen and (max-width: 768px) {
   .profile__info {
     justify-items: center;
+    margin-left: 28px;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .profile__info {
+    row-gap: 8px;
   }
 }
