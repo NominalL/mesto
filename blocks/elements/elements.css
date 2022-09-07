@@ -11,7 +11,7 @@
   .elements {
     grid-template-columns: repeat(2, minmax(100px, 266px));
     grid-template-rows: repeat(3, 1fr);
-    justify-content: center
+    justify-content: center;
   }
 }
 
