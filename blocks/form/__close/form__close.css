@@ -1,0 +1,24 @@
+.form__close {
+  background-image: url(../../../images/Close_Icon.svg);
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  left: 441px;
+  top: -42px;
+  cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+  .form__close {
+    left: 333px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .form__close {
+    background-image: url(../../../images/Close_Icon-mini.svg);
+    width: 20px;
+    height: 20px;
+    left: 261px;
+  }
+}
