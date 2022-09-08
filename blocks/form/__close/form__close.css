@@ -3,8 +3,8 @@
   width: 32px;
   height: 32px;
   position: absolute;
-  left: 441px;
-  top: -42px;
+  right: -40px;
+  top: -39px;
   cursor: pointer;
 }
 
@@ -14,7 +14,7 @@
 
 @media screen and (max-width:768px) {
   .form__close {
-    left: 333px;
+    right: 0px;
   }
 }
 
@@ -23,6 +23,6 @@
     background-image: url(../../../images/Close_Icon-mini.svg);
     width: 20px;
     height: 20px;
-    left: 261px;
+    top: -36px;
   }
 }

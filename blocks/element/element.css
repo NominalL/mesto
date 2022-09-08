@@ -1,6 +1,6 @@
 .element {
   display: flex;
-  position: relative;
+  flex-wrap: wrap;
   flex-direction: column;
   height: 362px;
   border-radius: 10px;
