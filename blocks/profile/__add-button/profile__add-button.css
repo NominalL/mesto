@@ -5,6 +5,8 @@
   cursor: pointer;
   background-image: url(../../../images/profile/Add_Button_mini.svg);
   background-size: cover;
+  background-color: black;
+  border: none;
 }
 
 .profile__add-button:hover {

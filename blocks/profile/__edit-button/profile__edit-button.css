@@ -9,6 +9,7 @@
   grid-area: edit-button;
   box-sizing: border-box;
   cursor: pointer;
+  background-color: black;
 }
 
 .profile__edit-button:hover {
