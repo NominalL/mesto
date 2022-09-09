@@ -6,7 +6,6 @@ let profileStatus = document.querySelector('.profile__status');
 let formName = document.querySelector('.popup__input-name');
 let formStatus = document.querySelector('.popup__input-status');
 let formSubmitButton = document.querySelector('.popup__info')
-let like = document.querySelectorAll('.element__like');
 
 function popupOpen() {
   formName.value = profileName.textContent;
@@ -27,13 +26,8 @@ function formSubmit(evt) {
   popupClose();
 }
 
+formSubmitButton.addEventListener('submit', formSubmit);
+
 profileEditButton.addEventListener('click', popupOpen);
 
 formClose.addEventListener('click', popupClose);
-
-formSubmitButton.addEventListener('submit', formSubmit);
-
-like.forEach(element => element.addEventListener('click', e => {
-  e.target.classList.toggle('element__like-active');
-}
-))
