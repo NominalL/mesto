@@ -13,6 +13,7 @@
 @media screen and (max-width: 768px) {
   .element__name {
     font-size: 3vw;
+    max-width: 60%;
   }
 }
 

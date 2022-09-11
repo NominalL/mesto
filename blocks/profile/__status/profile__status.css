@@ -11,11 +11,18 @@
   max-width: 300px;
 }
 
+@media screen and (max-width: 768px) {
+  .profile__status {
+    justify-self: start;
+  }
+}
+
 @media screen and (max-width:320px) {
   .profile__status {
     font-size: 14px;
     line-height: 17px;
     text-align: center;
     margin-right: 28px;
+    max-width: 214px;
   }
 }

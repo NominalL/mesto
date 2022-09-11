@@ -3,19 +3,19 @@ let form = document.querySelector('.popup');
 let formClose = form.querySelector('.popup__close');
 let profileName = document.querySelector('.profile__name');
 let profileStatus = document.querySelector('.profile__status');
-let formName = document.querySelector('.popup__input-name');
-let formStatus = document.querySelector('.popup__input-status');
-let formSubmitButton = document.querySelector('.popup__info')
+let formName = document.querySelector('.popup__input_name');
+let formStatus = document.querySelector('.popup__input_status');
+let formSubmitButton = document.querySelector('.popup__form')
 
 function popupOpen() {
   formName.value = profileName.textContent;
   formStatus.value = profileStatus.textContent;
 
-  form.classList.add('popup-open');
+  form.classList.add('popup_opened');
 }
 
 function popupClose() {
-  form.classList.remove('popup-open');
+  form.classList.remove('popup_opened');
 }
 
 function formSubmit(evt) {
