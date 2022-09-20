@@ -18,8 +18,20 @@
 
 @media screen and (max-width: 768px) {
   .element__name {
-    font-size: 3vw;
+    font-size: 22px;
     max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .element__name {
+    font-size: 3.7vw;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .element__name {
+    font-size: 3.6vw;
   }
 }
 
