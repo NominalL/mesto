@@ -24,56 +24,12 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
-        <div class="element">
-          <img src="./images/element/kirill-pershin-1088404-unsplash.jpg" class="element__image"
-            alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/element/Ельбрус.jpg" class="element__image" alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/element/Домбай.jpg" class="element__image" alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/element/Ельбрус.jpg" class="element__image" alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/element/Домбай.jpg" class="element__image" alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/element/kirill-pershin-1088404-unsplash.jpg" class="element__image"
-            alt="Фотография в профиле">
-          <div class="element__group">
-            <h2 class="element__name">Карачаево-Черкесия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copy">&copy; 2020 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <section class="popup" id="popup__profile">
       <div class="popup__container">
         <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -84,7 +40,29 @@
         </form>
       </div>
     </section>
+    <section class="popup" id="popup__card">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popup">
+          <input type="text" name="card-name" placeholder="Название" value=""
+            class="popup__input popup__input_card-name">
+          <input type="text" name="card-src" placeholder="Ссылка на картинку" value=""
+            class="popup__input popup__input_card-src">
+          <button type="submit" name="add" class="popup__submit-button">Создать</button>
+        </form>
+      </div>
+    </section>
   </div>
+  <template id="element">
+    <div class="element">
+      <img src="" class="element__image" alt="Фотография в профиле">
+      <div class="element__group">
+        <h2 class="element__name"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 
