@@ -5,4 +5,11 @@
   align-items: center;
   margin-top: 25px;
   margin-left: 21px;
+  max-width: 91.5%;
+}
+
+@media screen and (max-width: 720px) {
+  .element__group {
+    max-width: 88%;
+  }
 }

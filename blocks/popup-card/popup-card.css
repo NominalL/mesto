@@ -1,4 +1,4 @@
-.popup {
+.popup-card {
   position: fixed;
   visibility: hidden;
   transition: all 0.3s linear;
