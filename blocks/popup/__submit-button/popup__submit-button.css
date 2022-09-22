@@ -9,6 +9,7 @@
   width: 358px;
   height: 50px;
   cursor: pointer;
+  margin-bottom: 38px;
 }
 
 .popup__submit-button:hover {
@@ -28,5 +29,6 @@
     height: 46px;
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 25px;
   }
 }
