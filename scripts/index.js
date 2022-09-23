@@ -11,7 +11,7 @@ const templateH2 = templateCard.content.querySelector('.element__name');
 const templateImg = templateCard.content.querySelector('.element__image');
 const elements = document.querySelector('.elements');
 const popupAdd = document.querySelector('#popup__add');
-const addButton = document.querySelector('.profile__add-button');
+const buttonAdd = document.querySelector('.profile__add-button');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 const popupAddButton = popupAdd.querySelector('.popup__form');
 const popupAddInputName = popupAdd.querySelector('.popup__input_card-name');
@@ -22,7 +22,11 @@ const popupCardCloseButton = popupCard.querySelector('.popup-card__close');
 const popupCardCaption = popupCard.querySelector('.popup-card__caption');
 
 for (let i = 0; i < initialCards.length; i++) {
-  createCard(initialCards[i].name, initialCards[i].link);
+  renderCard(initialCards[i].name, initialCards[i].link);
+}
+
+function renderCard(name, image) {
+  elements.prepend(createCard(name, image));
 }
 
 function createCard(name, image) {
@@ -30,24 +34,24 @@ function createCard(name, image) {
   templateImg.src = image;
   templateImg.alt = templateH2.textContent;
   const card = templateCard.content.cloneNode(true);
-  elements.prepend(card);
-  elements.querySelector('.element__like').addEventListener('click', e => {
+  card.querySelector('.element__like').addEventListener('click', e => {
     e.target.classList.toggle('element__like_active');
   });
-  elements.querySelector('.element__trash').addEventListener('click', e => {
+  card.querySelector('.element__trash').addEventListener('click', e => {
     e.target.closest('.element').remove();
   });
-  elements.querySelector('.element__image').addEventListener('click', e => {
+  card.querySelector('.element__image').addEventListener('click', e => {
     openPopupCard();
     popupCardImage.src = e.target.src;
     popupCardCaption.textContent = e.target.closest('.element').querySelector('.element__name').textContent;
   });
+  return card;
 }
 
 function submitPopupAdd(evt) {
   evt.preventDefault();
 
-  createCard(popupAddInputName.value, popupAddInputSrc.value);
+  renderCard(popupAddInputName.value, popupAddInputSrc.value);
   closePopupAdd();
 }
 
@@ -92,7 +96,7 @@ profileEditButton.addEventListener('click', openPopupProfile);
 
 popupProfileCloseButton.addEventListener('click', closePopupProfile);
 
-addButton.addEventListener('click', openPopupAdd);
+buttonAdd.addEventListener('click', openPopupAdd);
 
 popupAddCloseButton.addEventListener('click', closePopupAdd);
 
