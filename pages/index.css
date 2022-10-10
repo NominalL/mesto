@@ -36,12 +36,19 @@
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
+@import url(../blocks/popup/__submit-button/_inactive/popup__submit-button_inactive.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_card-name/popup__input_card-name.css);
 @import url(../blocks/popup/__input/_card-src/popup__input_card-src.css);
 @import url(../blocks/popup/__input/_name/popup__input_name.css);
 @import url(../blocks/popup/__input/_status/popup__input_status.css);
+@import url(../blocks/popup/__input/_type_error/popup__input_type_error.css);
+@import url(../blocks/popup/__name-input-error/popup__name-input-error.css);
+@import url(../blocks/popup/__status-input-error/popup__status-input-error.css);
+@import url(../blocks/popup/__card-name-input-error/popup__card-name-input-error.css);
+@import url(../blocks/popup/__card-src-input-error/popup__card-src-input-error.css);
+@import url(../blocks/popup/__input-error/popup__input-error-active.css);
 
 @import url(../blocks/popup-card/popup-card.css);
 @import url(../blocks/popup-card/popup-card__content/popup-card__content.css);

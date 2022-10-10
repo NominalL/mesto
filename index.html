@@ -33,9 +33,13 @@
       <div class="popup__container">
         <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popup">
-          <input type="text" name="name" value="" class="popup__input popup__input_name">
-          <input type="text" name="status" value="" class="popup__input popup__input_status">
+        <form class="popup__form" name="popup" novalidate>
+          <input id="name-input" type="text" name="name" value="" class="popup__input popup__input_name" minlength="2"
+            maxlength="40" required>
+          <span class="name-input-error popup__name-input-error"></span>
+          <input id="status-input" type="text" name="status" value="" class="popup__input popup__input_status"
+            minlength="2" maxlength="200" required>
+          <span class="status-input-error popup__status-input-error"></span>
           <button type="submit" name="save" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
@@ -45,19 +49,21 @@
         <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="popup">
-          <input type="text" name="card-name" placeholder="Название" value=""
-            class="popup__input popup__input_card-name">
-          <input type="text" name="card-src" placeholder="Ссылка на картинку" value=""
-            class="popup__input popup__input_card-src">
+          <input id="card-name-input" type="text" name="card-name" placeholder="Название" value=""
+            class="popup__input popup__input_card-name" minlength="2" maxlength="30" required>
+          <span class="card-name-input-error popup__card-name-input-error"></span>
+          <input id="card-src-input" type="url" name="card-src" placeholder="Ссылка на картинку" value=""
+            class="popup__input popup__input_card-src" required>
+          <span class="card-src-input-error popup__card-src-input-error"></span>
           <button type="submit" name="add" class="popup__submit-button">Создать</button>
         </form>
       </div>
     </section>
     <section class="popup-card">
       <div class="popup-card__content">
-      <img src="#" class="popup-card__image">
-      <p class="popup-card__caption"></p>
-      <button class="popup-card__close" type="button"></button>
+        <img src="#" class="popup-card__image">
+        <p class="popup-card__caption"></p>
+        <button class="popup-card__close" type="button"></button>
       </div>
     </section>
   </div>
