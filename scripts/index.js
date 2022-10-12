@@ -1,5 +1,6 @@
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('#popup__profile');
+const popupProfileOvelay = popupProfile.querySelector('.popup__overlay');
 const popupProfileCloseButton = popupProfile.querySelector('.popup__close');
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
@@ -11,12 +12,14 @@ const templateH2 = templateCard.content.querySelector('.element__name');
 const templateImg = templateCard.content.querySelector('.element__image');
 const elements = document.querySelector('.elements');
 const popupAdd = document.querySelector('#popup__add');
+const popupAddOverlay = popupAdd.querySelector('.popup__overlay');
 const buttonAdd = document.querySelector('.profile__add-button');
 const popupAddCloseButton = popupAdd.querySelector('.popup__close');
 const popupAddButton = popupAdd.querySelector('.popup__form');
 const popupAddInputName = popupAdd.querySelector('.popup__input_card-name');
 const popupAddInputSrc = popupAdd.querySelector('.popup__input_card-src');
 const popupCard = document.querySelector('.popup-card');
+const popupCardOverlay = popupCard.querySelector('.popup-card__overlay');
 const popupCardImage = popupCard.querySelector('.popup-card__image');
 const popupCardCloseButton = popupCard.querySelector('.popup-card__close');
 const popupCardCaption = popupCard.querySelector('.popup-card__caption');
@@ -70,8 +73,6 @@ function openPopupProfile() {
   popupProfileName.value = profileName.textContent;
   popupProfileStatus.value = profileStatus.textContent;
 
-
-
   popupProfile.classList.add('popup_opened');
   enableButton(popupProfile);
 }
@@ -96,8 +97,8 @@ function closePopupCard() {
 
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
-});
+    return !inputElement.validity.valid;
+  });
 }
 
 function showInputError(inputElement, errorMessage) {
@@ -133,7 +134,7 @@ const toggleButtonState = (inputList, buttonElement) => {
     buttonElement.classList.add('popup__submit-button_inactive');
     buttonElement.setAttribute("disabled", "disabled");
   }
-  else{
+  else {
     buttonElement.classList.remove('popup__submit-button_inactive');
     buttonElement.removeAttribute("disabled", "disabled");
   }
@@ -178,16 +179,30 @@ function disableButton(formElement) {
   buttonElement.setAttribute("disabled", "disabled");
 }
 
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode === 27) {
+    closePopupProfile();
+    closePopupAdd();
+    closePopupCard();
+  }
+})
+
 popupProfileSubmitButton.addEventListener('submit', submitPopupProfile);
 
 profileEditButton.addEventListener('click', openPopupProfile);
 
 popupProfileCloseButton.addEventListener('click', closePopupProfile);
 
+popupProfileOvelay.addEventListener('click', closePopupProfile);
+
 buttonAdd.addEventListener('click', openPopupAdd);
 
 popupAddCloseButton.addEventListener('click', closePopupAdd);
 
+popupAddOverlay.addEventListener('click', closePopupAdd);
+
 popupAddButton.addEventListener('submit', submitPopupAdd);
 
 popupCardCloseButton.addEventListener('click', closePopupCard);
+
+popupCardOverlay.addEventListener('click', closePopupCard);
