@@ -37,13 +37,12 @@
           <input id="name-input" type="text" name="name" class="popup__input popup__input_name" minlength="2"
             maxlength="40" required>
           <span class="name-input-error popup__name-input-error"></span>
-          <input id="status-input" type="text" name="status" class="popup__input popup__input_status"
-            minlength="2" maxlength="200" required>
+          <input id="status-input" type="text" name="status" class="popup__input popup__input_status" minlength="2"
+            maxlength="200" required>
           <span class="status-input-error popup__status-input-error"></span>
           <button type="submit" name="save" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
-      <div class="popup__overlay"></div>
     </section>
     <section class="popup" id="popup__add">
       <div class="popup__container">
@@ -59,15 +58,13 @@
           <button type="submit" name="add" class="popup__submit-button">Создать</button>
         </form>
       </div>
-      <div class="popup__overlay"></div>
     </section>
-    <section class="popup-card">
+    <section class="popup" id="popup-card">
       <div class="popup-card__content">
         <img src="#" class="popup-card__image">
         <p class="popup-card__caption"></p>
-        <button class="popup-card__close" type="button"></button>
+        <button class="popup__close" type="button"></button>
       </div>
-      <div class="popup-card__overlay"></div>
     </section>
   </div>
   <template id="element">
