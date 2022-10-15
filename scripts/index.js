@@ -21,10 +21,10 @@ const popupAddSubmitButton = popupAdd.querySelector(".popup__form");
 const popupAddInputName = popupAdd.querySelector(".popup__input_card-name");
 const popupAddInputSrc = popupAdd.querySelector(".popup__input_card-src");
 const popupCard = document.querySelector("#popup-card");
-const popupCardContainer = popupCard.querySelector(".popup-card__content");
-const popupCardImage = popupCard.querySelector(".popup-card__image");
+const popupCardContainer = popupCard.querySelector(".popup__content-card");
+const popupCardImage = popupCard.querySelector(".popup__image-card");
 const popupCardCloseButton = popupCard.querySelector(".popup__close");
-const popupCardCaption = popupCard.querySelector(".popup-card__caption");
+const popupCardCaption = popupCard.querySelector(".popup__caption-card");
 
 for (let i = 0; i < initialCards.length; i++) {
   renderCard(initialCards[i].name, initialCards[i].link);
