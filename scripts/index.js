@@ -60,8 +60,9 @@ function openPopup(popup) {
   addEventEsc();
 }
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
+function closePopup() {
+  document.querySelector(".popup_opened").classList.remove("popup_opened");
+  removeEventEsc();
 }
 
 function submitPopupAdd() {
@@ -80,7 +81,7 @@ function openPopupAdd() {
 }
 
 function closePopupAdd() {
-  closePopup(popupAdd);
+  closePopup();
 }
 
 function openPopupProfile() {
@@ -94,7 +95,7 @@ function openPopupProfile() {
 }
 
 function closePopupProfile() {
-  closePopup(popupProfile);
+  closePopup();
 }
 
 function submitPopupProfile() {
@@ -108,18 +109,21 @@ function openPopupCard() {
 }
 
 function closePopupCard() {
-  closePopup(popupCard);
+  closePopup();
 }
 
 function closePopupEsc(evt) {
   if (evt.key === "Escape") {
-    document.querySelector(".popup_opened").classList.remove("popup_opened");
-    document.removeEventListener("keydown", closePopupEsc);
+    closePopup();
   }
 }
 
 function addEventEsc() {
   document.addEventListener("keydown", closePopupEsc);
+}
+
+function removeEventEsc() {
+  document.removeEventListener("keydown", closePopupEsc);
 }
 
 popupProfileSubmitButton.addEventListener("submit", submitPopupProfile);
