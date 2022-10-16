@@ -67,7 +67,7 @@ function closePopup() {
 
 function submitPopupAdd() {
   renderCard(popupAddInputName.value, popupAddInputSrc.value);
-  closePopupAdd();
+  closePopup();
 }
 
 function openPopupAdd() {
@@ -93,7 +93,7 @@ function openPopupProfile() {
 function submitPopupProfile() {
   profileName.textContent = popupProfileName.value;
   profileStatus.textContent = popupProfileStatus.value;
-  closePopupProfile();
+  closePopup();
 }
 
 function openPopupCard() {
