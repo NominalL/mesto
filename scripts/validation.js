@@ -1,4 +1,4 @@
-const settings = {
+export const settings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__submit-button",
@@ -6,7 +6,8 @@ const settings = {
   inputErrorClass: "popup__input_type_error",
   errorActiveClass: "popup__input-error-active",
 };
-class FormValidator {
+
+export class FormValidator {
   constructor(settings, formElement) {
     this.settings = settings;
     this.formElement = formElement;
@@ -67,7 +68,7 @@ function showInputError(inputElement, errorMessage, settings) {
   errorElement.classList.add(settings.errorActiveClass);
 }
 
-function hideInputError(inputElement, settings) {
+export function hideInputError(inputElement, settings) {
   const errorElement = document.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.remove(settings.inputErrorClass);
@@ -77,19 +78,12 @@ function hideInputError(inputElement, settings) {
   errorElement.textContent = "";
 }
 
-function enableButton(buttonElement, settings) {
+export function enableButton(buttonElement, settings) {
   buttonElement.classList.remove(settings.inactiveButtonClass);
   buttonElement.removeAttribute("disabled", "disabled");
 }
 
-function disableButton(buttonElement, settings) {
+export function disableButton(buttonElement, settings) {
   buttonElement.classList.add(settings.inactiveButtonClass);
   buttonElement.setAttribute("disabled", "disabled");
 }
-
-const formList = Array.from(document.querySelectorAll(settings.formSelector));
-
-formList.forEach((formElement) => {
-  const validation = new FormValidator(settings, formElement);
-  validation.enableValidation(validation.settings, validation.formElement);
-});
