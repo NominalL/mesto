@@ -5,7 +5,10 @@ import {
   enableButton,
   disableButton,
 } from "./validation.js";
-import { Card, initialCards } from "./cards.js";
+
+import { Card } from "./cards.js";
+
+import { initialCards } from "./initialCards.js"
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 
@@ -25,8 +28,6 @@ const popupProfileStatus = popupProfile.querySelector(".popup__input_status");
 
 const popupProfileSubmitButton = popupProfile.querySelector(".popup__form");
 
-const templateCard = document.querySelector("#element");
-
 const elements = document.querySelector(".elements");
 
 const popupAdd = document.querySelector("#popup__add");
@@ -45,6 +46,8 @@ const popupAddInputSrc = popupAdd.querySelector(".popup__input_card-src");
 
 const popupCard = document.querySelector("#popup-card");
 
+const popupCardCloseButton = popupCard.querySelector(".popup__close");
+
 const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
 formList.forEach((formElement) => {
@@ -53,7 +56,7 @@ formList.forEach((formElement) => {
 });
 
 for (let i = 0; i < initialCards.length; i++) {
-  renderCard(initialCards[i].name, initialCards[i].link, templateCard);
+  renderCard(initialCards[i].name, initialCards[i].link, "#element");
 }
 
 function renderCard(name, image, templateCard) {
@@ -75,7 +78,7 @@ function closePopup(popup) {
 
 function submitPopupAdd(evt) {
   evt.preventDefault();
-  renderCard(popupAddInputName.value, popupAddInputSrc.value, templateCard);
+  renderCard(popupAddInputName.value, popupAddInputSrc.value, "#element");
 
   closePopupAdd();
 }
@@ -140,6 +143,12 @@ function removeEventEsc() {
   document.removeEventListener("keydown", closePopupEsc);
 }
 
+function closePopupCard() {
+  closePopup(popupCard);
+}
+
+popupCardCloseButton.addEventListener("click", closePopupCard);
+
 popupProfileSubmitButton.addEventListener("submit", submitPopupProfile);
 
 profileEditButton.addEventListener("click", openPopupProfile);
@@ -152,7 +161,7 @@ popupAddCloseButton.addEventListener("click", closePopupAdd);
 
 popupAddSubmitButton.addEventListener("submit", submitPopupAdd);
 
-[popupAdd, popupProfile].forEach((p) => {
+[popupAdd, popupProfile, popupCard].forEach((p) => {
   p.addEventListener("click", function (e) {
     if (e.target === p) {
       closePopup(p);
