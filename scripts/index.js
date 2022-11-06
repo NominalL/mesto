@@ -1,14 +1,10 @@
-import {
-  FormValidator,
-  settings,
-  hideInputError,
-  enableButton,
-  disableButton,
-} from "./validation.js";
+import { FormValidator } from "./validation.js";
 
 import { Card } from "./cards.js";
 
-import { initialCards } from "./initialCards.js"
+import { initialCards } from "./initialCards.js";
+
+import { settings } from "./settings.js";
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 
@@ -26,7 +22,7 @@ const popupProfileName = popupProfile.querySelector(".popup__input_name");
 
 const popupProfileStatus = popupProfile.querySelector(".popup__input_status");
 
-const popupProfileSubmitButton = popupProfile.querySelector(".popup__form");
+const popupProfileForm = popupProfile.querySelector(".popup__form");
 
 const elements = document.querySelector(".elements");
 
@@ -38,7 +34,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 
 const popupAddCloseButton = popupAdd.querySelector(".popup__close");
 
-const popupAddSubmitButton = popupAdd.querySelector(".popup__form");
+const popupAddForm = popupAdd.querySelector(".popup__form");
 
 const popupAddInputName = popupAdd.querySelector(".popup__input_card-name");
 
@@ -48,20 +44,22 @@ const popupCard = document.querySelector("#popup-card");
 
 const popupCardCloseButton = popupCard.querySelector(".popup__close");
 
-const formList = Array.from(document.querySelectorAll(settings.formSelector));
-
-formList.forEach((formElement) => {
-  const validation = new FormValidator(settings, formElement);
-  validation.enableValidation(validation.settings, validation.formElement);
-});
+const profileValidation = new FormValidator(settings, popupProfileForm);
+const newCardValidation = new FormValidator(settings, popupAddForm);
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
 
 for (let i = 0; i < initialCards.length; i++) {
-  renderCard(initialCards[i].name, initialCards[i].link, "#element");
+  renderCardPrepend(initialCards[i].name, initialCards[i].link, "#element");
 }
 
-function renderCard(name, image, templateCard) {
+function createCard(name, image, templateCard) {
   const card = new Card(name, image, templateCard);
-  elements.prepend(card.createCard());
+  return card.createCard();
+}
+
+function renderCardPrepend(name, image, templateCard) {
+  elements.prepend(createCard(name, image, templateCard));
 }
 
 function openPopup(popup) {
@@ -78,7 +76,11 @@ function closePopup(popup) {
 
 function submitPopupAdd(evt) {
   evt.preventDefault();
-  renderCard(popupAddInputName.value, popupAddInputSrc.value, "#element");
+  renderCardPrepend(
+    popupAddInputName.value,
+    popupAddInputSrc.value,
+    "#element"
+  );
 
   closePopupAdd();
 }
@@ -147,9 +149,28 @@ function closePopupCard() {
   closePopup(popupCard);
 }
 
+function hideInputError(inputElement, settings) {
+  const errorElement = document.querySelector(`.${inputElement.id}-error`);
+
+  inputElement.classList.remove(settings.inputErrorClass);
+
+  errorElement.classList.remove(settings.errorActiveClass);
+
+  errorElement.textContent = "";
+}
+
+function enableButton(buttonElement, settings) {
+  buttonElement.classList.remove(settings.inactiveButtonClass);
+  buttonElement.removeAttribute("disabled", "disabled");
+}
+
+function disableButton(buttonElement, settings) {
+  buttonElement.classList.add(settings.inactiveButtonClass);
+  buttonElement.setAttribute("disabled", "disabled");
+}
 popupCardCloseButton.addEventListener("click", closePopupCard);
 
-popupProfileSubmitButton.addEventListener("submit", submitPopupProfile);
+popupProfileForm.addEventListener("submit", submitPopupProfile);
 
 profileEditButton.addEventListener("click", openPopupProfile);
 
@@ -159,7 +180,7 @@ buttonAdd.addEventListener("click", openPopupAdd);
 
 popupAddCloseButton.addEventListener("click", closePopupAdd);
 
-popupAddSubmitButton.addEventListener("submit", submitPopupAdd);
+popupAddForm.addEventListener("submit", submitPopupAdd);
 
 [popupAdd, popupProfile, popupCard].forEach((p) => {
   p.addEventListener("click", function (e) {
