@@ -1,6 +1,6 @@
-import { FormValidator } from "./validation.js";
+import { FormValidator } from "./FormValidator.js";
 
-import { Card } from "./cards.js";
+import { Card } from "./Card.js";
 
 import { initialCards } from "./initialCards.js";
 
@@ -42,6 +42,10 @@ const popupAddInputSrc = popupAdd.querySelector(".popup__input_card-src");
 
 const popupCard = document.querySelector("#popup-card");
 
+const popupCardCaption = popupCard.querySelector(".popup__caption-card");
+
+const popupCardImage = popupCard.querySelector(".popup__image-card");
+
 const popupCardCloseButton = popupCard.querySelector(".popup__close");
 
 const profileValidation = new FormValidator(settings, popupProfileForm);
@@ -50,16 +54,21 @@ profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
 for (let i = 0; i < initialCards.length; i++) {
-  renderCardPrepend(initialCards[i].name, initialCards[i].link, "#element");
+  renderCardPrepend(
+    initialCards[i].name,
+    initialCards[i].link,
+    "#element",
+    handleOpenPopupCard
+  );
 }
 
-function createCard(name, image, templateCard) {
-  const card = new Card(name, image, templateCard);
+function createCard(name, image, templateCard, handleOpenPopupCard) {
+  const card = new Card(name, image, templateCard, handleOpenPopupCard);
   return card.createCard();
 }
 
-function renderCardPrepend(name, image, templateCard) {
-  elements.prepend(createCard(name, image, templateCard));
+function renderCardPrepend(name, image, templateCard, handleOpenPopupCard) {
+  elements.prepend(createCard(name, image, templateCard, handleOpenPopupCard));
 }
 
 function openPopup(popup) {
@@ -79,7 +88,8 @@ function submitPopupAdd(evt) {
   renderCardPrepend(
     popupAddInputName.value,
     popupAddInputSrc.value,
-    "#element"
+    "#element",
+    handleOpenPopupCard
   );
 
   closePopupAdd();
@@ -90,11 +100,11 @@ function openPopupAdd() {
 
   popupAddInputSrc.value = "";
 
-  disableButton(popupAddButton, settings);
+  newCardValidation.disableButton(popupAddButton);
 
-  hideInputError(popupAddInputName, settings);
+  newCardValidation.hideInputError(popupAddInputName);
 
-  hideInputError(popupAddInputSrc, settings);
+  newCardValidation.hideInputError(popupAddInputSrc);
 
   openPopup(popupAdd);
 }
@@ -108,11 +118,11 @@ function openPopupProfile() {
 
   popupProfileStatus.value = profileStatus.textContent;
 
-  enableButton(popupProfileButton, settings);
+  profileValidation.enableButton(popupProfileButton);
 
-  hideInputError(popupProfileName, settings);
+  profileValidation.hideInputError(popupProfileName);
 
-  hideInputError(popupProfileStatus, settings);
+  profileValidation.hideInputError(popupProfileStatus);
 
   openPopup(popupProfile);
 }
@@ -149,25 +159,14 @@ function closePopupCard() {
   closePopup(popupCard);
 }
 
-function hideInputError(inputElement, settings) {
-  const errorElement = document.querySelector(`.${inputElement.id}-error`);
+function handleOpenPopupCard(name, image) {
+  popupCardImage.src = image;
+  popupCardImage.alt = name;
+  popupCardCaption.textContent = name;
 
-  inputElement.classList.remove(settings.inputErrorClass);
-
-  errorElement.classList.remove(settings.errorActiveClass);
-
-  errorElement.textContent = "";
+  openPopup(popupCard);
 }
 
-function enableButton(buttonElement, settings) {
-  buttonElement.classList.remove(settings.inactiveButtonClass);
-  buttonElement.removeAttribute("disabled", "disabled");
-}
-
-function disableButton(buttonElement, settings) {
-  buttonElement.classList.add(settings.inactiveButtonClass);
-  buttonElement.setAttribute("disabled", "disabled");
-}
 popupCardCloseButton.addEventListener("click", closePopupCard);
 
 popupProfileForm.addEventListener("submit", submitPopupProfile);
@@ -182,10 +181,10 @@ popupAddCloseButton.addEventListener("click", closePopupAdd);
 
 popupAddForm.addEventListener("submit", submitPopupAdd);
 
-[popupAdd, popupProfile, popupCard].forEach((p) => {
-  p.addEventListener("click", function (e) {
-    if (e.target === p) {
-      closePopup(p);
+document.querySelectorAll(".popup").forEach((popup) => {
+  popup.addEventListener("click", function (e) {
+    if (e.target === popup) {
+      closePopup(popup);
     }
   });
 });
