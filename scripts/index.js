@@ -6,6 +6,8 @@ import { initialCards } from "./initialCards.js";
 
 import { settings } from "./settings.js";
 
+import Section from "./Section.js";
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 
 const popupProfile = document.querySelector("#popup__profile");
@@ -53,23 +55,24 @@ const newCardValidation = new FormValidator(settings, popupAddForm);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
-for (let i = 0; i < initialCards.length; i++) {
-  renderCardPrepend(
-    initialCards[i].name,
-    initialCards[i].link,
-    "#element",
-    handleOpenPopupCard
-  );
-}
+const sectionCard = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(
+        item.name,
+        item.link,
+        "#element",
+        handleOpenPopupCard
+      );
+      const cardElement = card.createCard();
+      sectionCard.addItem(cardElement);
+    },
+  },
+  ".elements"
+);
 
-function createCard(name, image, templateCard, handleOpenPopupCard) {
-  const card = new Card(name, image, templateCard, handleOpenPopupCard);
-  return card.createCard();
-}
-
-function renderCardPrepend(name, image, templateCard, handleOpenPopupCard) {
-  elements.prepend(createCard(name, image, templateCard, handleOpenPopupCard));
-}
+sectionCard.renderCard();
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -85,12 +88,31 @@ function closePopup(popup) {
 
 function submitPopupAdd(evt) {
   evt.preventDefault();
-  renderCardPrepend(
-    popupAddInputName.value,
-    popupAddInputSrc.value,
-    "#element",
-    handleOpenPopupCard
+  const inputItems = [
+    {
+      name: popupAddInputName.value,
+      link: popupAddInputSrc.value,
+    },
+  ];
+
+  const sectionCard = new Section(
+    {
+      items: inputItems,
+      renderer: (item) => {
+        const card = new Card(
+          item.name,
+          item.link,
+          "#element",
+          handleOpenPopupCard
+        );
+        const cardElement = card.createCard();
+        sectionCard.addItem(cardElement);
+      },
+    },
+    ".elements"
   );
+
+  sectionCard.renderCard();
 
   closePopupAdd();
 }

@@ -16,9 +16,7 @@ export class Card {
 
     this._cardImage.src = this._image;
 
-    this._cardImage.alt = this._name.textContent;
-
-    return this._card;
+    this._cardImage.alt = this._name;
   }
 
   _toggleLikeCardEventCallback() {
