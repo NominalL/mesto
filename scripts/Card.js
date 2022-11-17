@@ -1,5 +1,5 @@
 export class Card {
-  constructor(name, image, templateCard, handleOpenPopupCard) {
+  constructor(name, image, templateCard, {handleOpenPopupCard}) {
     this._name = name;
     this._image = image;
     this._handleOpenPopupCard = handleOpenPopupCard;
