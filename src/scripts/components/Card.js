@@ -1,17 +1,22 @@
 export class Card {
-  constructor(name, image, templateCard, {handleOpenPopupCard}) {
+  constructor(name, image, templateCard, { handleOpenPopupCard }) {
     this._name = name;
     this._image = image;
     this._handleOpenPopupCard = handleOpenPopupCard;
     this._templateCard = document.querySelector(templateCard).content;
-    this._card = this._templateCard.querySelector(".element").cloneNode(true);
-    this._cardName = this._card.querySelector(".element__name");
-    this._cardImage = this._card.querySelector(".element__image");
-    this._cardLike = this._card.querySelector(".element__like");
-    this._cardTrash = this._card.querySelector(".element__trash");
   }
 
   _createTemplateCard() {
+    this._card = this._templateCard.querySelector(".element").cloneNode(true);
+
+    this._cardName = this._card.querySelector(".element__name");
+
+    this._cardImage = this._card.querySelector(".element__image");
+
+    this._cardLike = this._card.querySelector(".element__like");
+
+    this._cardTrash = this._card.querySelector(".element__trash");
+
     this._cardName.textContent = this._name;
 
     this._cardImage.src = this._image;

@@ -5,11 +5,11 @@ export default class Popup {
   }
 
   _addEventEsc() {
-    document.addEventListener("keydown", (evt) => {this._handleEscClose(evt)});
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   _removeEventEsc() {
-    document.removeEventListener("keydown", (evt) => {this._handleEscClose(evt)});
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
   open() {
@@ -24,8 +24,8 @@ export default class Popup {
     this._removeEventEsc();
   }
 
-  _handleEscClose(evt) {
-    if (evt.key === "Escape") {
+  _handleEscClose = (e) => {
+    if (e.key === "Escape") {
       this.close();
     }
   }
@@ -37,7 +37,7 @@ export default class Popup {
   }
 
   _closeOvelayClick() {
-    this._popup.addEventListener("click", (e) => {
+    this._popup.addEventListener("mousedown", (e) => {
       this._closeOvelayClickCallback(e);
     });
   }
