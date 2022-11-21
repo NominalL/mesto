@@ -1,3 +1,5 @@
+import "./index.css";
+
 import {
   popupProfileForm,
   popupAddForm,
@@ -23,8 +25,8 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 
 import { UserInfo } from "../scripts/components/UserInfo.js";
 
-export const profileValidation = new FormValidator(settings, popupProfileForm);
-export const newCardValidation = new FormValidator(settings, popupAddForm);
+const profileValidation = new FormValidator(settings, popupProfileForm);
+const newCardValidation = new FormValidator(settings, popupAddForm);
 profileValidation.enableValidation();
 newCardValidation.enableValidation();
 
@@ -35,7 +37,7 @@ const sectionCard = new Section(
     items: initialCards,
     renderer: (items) => {
       items.forEach((item) => {
-        createClassCard(item.name, item.link);
+        sectionCard.addItem(createClassCard(item.name, item.link));
       });
     },
   },
@@ -47,29 +49,22 @@ sectionCard.renderCards();
 const popupAddWithForm = new PopupWithForm(
   {
     submit: (inputItems) => {
-      createClassCard(
-        inputItems["card-name-input"],
-        inputItems["card-src-input"]
+      sectionCard.addItem(
+        createClassCard(
+          inputItems["card-name-input"],
+          inputItems["card-src-input"]
+        )
       );
 
       popupAddWithForm.close();
-    },
-    resetInputValue: () => {
-      popupAddInputName.value = "";
-
-      popupAddInputSrc.value = "";
-
-      newCardValidation.resetValidation();
     },
   },
   "#popup__add"
 );
 
-popupAddWithForm.resetForm();
 popupAddWithForm.setEventListener();
 
-
-export const info = new UserInfo(".profile__name", ".profile__status");
+const info = new UserInfo(".profile__name", ".profile__status");
 
 const popupProfileWithForm = new PopupWithForm(
   {
@@ -78,18 +73,10 @@ const popupProfileWithForm = new PopupWithForm(
 
       popupProfileWithForm.close();
     },
-    resetInputValue: () => {
-      popupProfileName.value = info.getUserInfo().name;
-
-      popupProfileStatus.value = info.getUserInfo().status;
-
-      profileValidation.resetValidation();
-    },
   },
   "#popup__profile"
 );
 
-popupProfileWithForm.resetForm();
 popupProfileWithForm.setEventListener();
 
 function createClassCard(name, link) {
@@ -100,13 +87,22 @@ function createClassCard(name, link) {
     },
   });
   const cardElement = card.createCard();
-  sectionCard.addItem(cardElement);
+
+  return cardElement;
 }
 
 profileEditButton.addEventListener("click", () => {
+  popupProfileName.value = info.getUserInfo().name;
+
+  popupProfileStatus.value = info.getUserInfo().status;
+
+  profileValidation.resetValidation();
+
   popupProfileWithForm.open();
 });
 
 buttonAdd.addEventListener("click", () => {
+  newCardValidation.resetValidation();
+
   popupAddWithForm.open();
 });
