@@ -12,9 +12,9 @@ export class UserInfo {
     return userInfo;
   }
 
-  setUserInfo(name, status) {
-    this._name.textContent = name;
+  setUserInfo(inputItems) {
+    this._name.textContent = inputItems["name-input"];
 
-    this._status.textContent = status;
+    this._status.textContent = inputItems["status-input"];
   }
 }

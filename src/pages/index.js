@@ -1,5 +1,3 @@
-import "./index.css"
-
 import {
   popupProfileForm,
   popupAddForm,
@@ -49,26 +47,19 @@ sectionCard.renderCards();
 const popupAddWithForm = new PopupWithForm(
   {
     submit: (inputItems) => {
-      const sectionCard = new Section(
-        {
-          items: inputItems,
-          renderer: (input) => {
-            createClassCard(input["card-name-input"], input["card-src-input"]);
-          },
-        },
-        ".elements"
+      createClassCard(
+        inputItems["card-name-input"],
+        inputItems["card-src-input"]
       );
-
-      sectionCard.renderCards();
 
       popupAddWithForm.close();
     },
-    reset: (inputList) => {
+    resetInputValue: () => {
       popupAddInputName.value = "";
 
       popupAddInputSrc.value = "";
 
-      newCardValidation.resetValidation(inputList);
+      newCardValidation.resetValidation();
     },
   },
   "#popup__add"
@@ -77,21 +68,22 @@ const popupAddWithForm = new PopupWithForm(
 popupAddWithForm.resetForm();
 popupAddWithForm.setEventListener();
 
-const info = new UserInfo(".profile__name", ".profile__status");
+
+export const info = new UserInfo(".profile__name", ".profile__status");
 
 const popupProfileWithForm = new PopupWithForm(
   {
-    submit: () => {
-      info.setUserInfo(popupProfileName.value, popupProfileStatus.value);
+    submit: (inputItems) => {
+      info.setUserInfo(inputItems);
 
       popupProfileWithForm.close();
     },
-    reset: (inputlist) => {
+    resetInputValue: () => {
       popupProfileName.value = info.getUserInfo().name;
 
       popupProfileStatus.value = info.getUserInfo().status;
 
-      profileValidation.resetValidation(inputlist);
+      profileValidation.resetValidation();
     },
   },
   "#popup__profile"

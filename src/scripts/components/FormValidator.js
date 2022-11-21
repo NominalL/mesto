@@ -74,8 +74,8 @@ export class FormValidator {
     this._setEventListeners();
   }
 
-  resetValidation(inputList) {
-    inputList.forEach((input) => {
+  resetValidation() {
+    this._inputList.forEach((input) => {
       this.hideInputError(input);
     });
 
