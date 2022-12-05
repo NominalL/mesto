@@ -7,7 +7,7 @@ export class UserInfo {
   getUserInfo() {
     const userInfo = {
       name: this._name.textContent,
-        status: this._status.textContent,
+      status: this._status.textContent,
     };
     return userInfo;
   }

@@ -1,7 +1,8 @@
 export class Card {
-  constructor(name, image, templateCard, { handleOpenPopupCard }) {
+  constructor(name, image, counter, templateCard, { handleOpenPopupCard }) {
     this._name = name;
     this._image = image;
+    this._counterValue = counter;
     this._handleOpenPopupCard = handleOpenPopupCard;
     this._templateCard = document.querySelector(templateCard).content;
   }
@@ -15,6 +16,8 @@ export class Card {
 
     this._cardLike = this._card.querySelector(".element__like");
 
+    this._cardLikeCounter = this._card.querySelector(".element__counter");
+
     this._cardTrash = this._card.querySelector(".element__trash");
 
     this._cardName.textContent = this._name;
@@ -22,6 +25,8 @@ export class Card {
     this._cardImage.src = this._image;
 
     this._cardImage.alt = this._name;
+
+    this._cardLikeCounter.textContent = this._counterValue;
   }
 
   _toggleLikeCardEventCallback() {

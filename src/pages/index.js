@@ -1,16 +1,17 @@
-import "./index.css";
+//import "./index.css";
 
 import {
   popupProfileForm,
   popupAddForm,
   profileEditButton,
   buttonAdd,
-  popupAddInputName,
-  popupAddInputSrc,
   popupProfileName,
   popupProfileStatus,
-  initialCards,
   settings,
+  profileName,
+  profileStatus,
+  profileAvatar,
+  likeCounter
 } from "../scripts/utils/constants.js";
 
 import { FormValidator } from "../scripts/components/FormValidator.js";
@@ -32,30 +33,30 @@ newCardValidation.enableValidation();
 
 const popupCardWithImage = new PopupWithImage("#popup-card");
 
-const sectionCard = new Section(
-  {
-    items: initialCards,
-    renderer: (items) => {
-      items.forEach((item) => {
-        sectionCard.addItem(createClassCard(item.name, item.link));
-      });
-    },
-  },
-  ".elements"
-);
-
-sectionCard.renderCards();
-
 const popupAddWithForm = new PopupWithForm(
   {
     submit: (inputItems) => {
-      sectionCard.addItem(
-        createClassCard(
-          inputItems["card-name-input"],
-          inputItems["card-src-input"]
-        )
+      const sectionCard = new Section(
+        {
+          items: inputItems,
+          renderer: (items) => {
+            sectionCard.addItemPrepend(createClassCard(items["card-name-input"], items["card-src-input"], 0));
+            fetch('https://mesto.nomoreparties.co/v1/cohort-55/cards', {
+              method: 'POST',
+              headers: {
+                authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                name: items["card-name-input"],
+                link: items["card-src-input"]
+              })
+            })
+          },
+        },
+        ".elements"
       );
-
+      sectionCard.renderCards();
       popupAddWithForm.close();
     },
   },
@@ -79,8 +80,8 @@ const popupProfileWithForm = new PopupWithForm(
 
 popupProfileWithForm.setEventListener();
 
-function createClassCard(name, link) {
-  const card = new Card(name, link, "#element", {
+function createClassCard(name, link, likes) {
+  const card = new Card(name, link, likes, "#element", {
     handleOpenPopupCard: (name, image) => {
       popupCardWithImage.setEventListener();
       popupCardWithImage.open(name, image);
@@ -106,3 +107,50 @@ buttonAdd.addEventListener("click", () => {
 
   popupAddWithForm.open();
 });
+
+fetch('https://nomoreparties.co/v1/cohort-55/users/me', {
+  headers: {
+    authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3'
+  }
+})
+  .then(res => res.json())
+  .then((res) => {
+    profileName.textContent = res.name;
+    profileStatus.textContent = res.about;
+    profileAvatar.src = res.avatar;
+  })
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-55/cards', {
+  headers: {
+    authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3'
+  }
+})
+  .then(res => res.json())
+  .then((res) => {
+    const sectionCard = new Section(
+      {
+        items: res,
+        renderer: (items) => {
+          items.forEach((item) => {
+            sectionCard.addItemAppend(createClassCard(item.name, item.link, item.likes.length));
+          });
+        },
+      },
+      ".elements"
+    );
+
+    sectionCard.renderCards();
+  })
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-55/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Картавцев Никита',
+    about: 'Жеский программист'
+  })
+});
+

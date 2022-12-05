@@ -2,11 +2,15 @@ export const popupCard = document.querySelector("#popup-card");
 
 export const profileName = document.querySelector(".profile__name");
 
-export const profileStatus = document.querySelector(".profile__Status");
+export const profileStatus = document.querySelector(".profile__status");
+
+export const profileAvatar = document.querySelector(".profile__avatar");
 
 export const popupCardCaption = popupCard.querySelector(".popup__caption-card");
 
 export const popupCardImage = popupCard.querySelector(".popup__image-card");
+
+export const likeCounter = document.querySelector(".element__counter");
 
 export const profileEditButton = document.querySelector(
   ".profile__edit-button"
