@@ -459,6 +459,7 @@ template {
   height: 120px;
   border-radius: 50%;
   margin-right: 30px;
+  object-fit: cover;
 }
 
 @media screen and (max-width:320px) {
@@ -648,10 +649,12 @@ template {
 .element__like {
   background-image: url(e3b9ba5840ebe97bc077.svg);
   background-size: cover;
+  position: absolute;
   width: 22px;
   height: 19px;
   cursor: pointer;
-  margin-right: 21px;
+  bottom: 39px;
+  right: 21px;
   background-color: white;
   border: none;
 }
@@ -739,6 +742,17 @@ template {
 
 .element__trash:hover {
   opacity: 0.6;
+}
+
+.element__counter {
+  position: absolute;
+  bottom: 20px;
+  right: 27px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: black;
 }
 
 .footer {
