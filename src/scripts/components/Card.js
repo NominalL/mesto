@@ -1,10 +1,13 @@
 export class Card {
-  constructor(name, image, counter, templateCard, { handleOpenPopupCard }) {
+  constructor(name, image, counter, templateCard, id, { handleOpenPopupCard, handleOpenPopupDelCard }) {
     this._name = name;
     this._image = image;
+    this._id = id;
     this._counterValue = counter;
     this._handleOpenPopupCard = handleOpenPopupCard;
+    this._handleOpenPopupDelCard = handleOpenPopupDelCard;
     this._templateCard = document.querySelector(templateCard).content;
+    this._popupDelCard = document.querySelector("#popup__del");
   }
 
   _createTemplateCard() {
@@ -19,6 +22,10 @@ export class Card {
     this._cardLikeCounter = this._card.querySelector(".element__counter");
 
     this._cardTrash = this._card.querySelector(".element__trash");
+
+    if (this._id != '5bdf4960f51a4bfdb2402408') {
+      this._cardTrash.remove();
+    }
 
     this._cardName.textContent = this._name;
 
@@ -43,11 +50,13 @@ export class Card {
       this._toggleLikeCardEventCallback();
     });
 
-    this._card
-      .querySelector(".element__trash")
-      .addEventListener("click", () => {
-        this._deleteCardEventCallback();
-      });
+    if (this._id === '5bdf4960f51a4bfdb2402408') {
+      this._cardTrash
+        .addEventListener("click", () => {
+          this._handleOpenPopupDelCard(this._card);
+        });
+    }
+
 
     this._cardImage.addEventListener("click", () => {
       this._handleOpenPopupCard(this._name, this._image);

@@ -11,7 +11,6 @@ import {
   profileName,
   profileStatus,
   profileAvatar,
-  likeCounter
 } from "../scripts/utils/constants.js";
 
 import { FormValidator } from "../scripts/components/FormValidator.js";
@@ -25,6 +24,7 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 
 import { UserInfo } from "../scripts/components/UserInfo.js";
+import PopupWithDelCard from "../scripts/components/PopupWithDelCard.js";
 
 const profileValidation = new FormValidator(settings, popupProfileForm);
 const newCardValidation = new FormValidator(settings, popupAddForm);
@@ -40,7 +40,7 @@ const popupAddWithForm = new PopupWithForm(
         {
           items: inputItems,
           renderer: (items) => {
-            sectionCard.addItemPrepend(createClassCard(items["card-name-input"], items["card-src-input"], 0));
+            sectionCard.addItemPrepend(createClassCard(items["card-name-input"], items["card-src-input"], 0, '5bdf4960f51a4bfdb2402408'));
             fetch('https://mesto.nomoreparties.co/v1/cohort-55/cards', {
               method: 'POST',
               headers: {
@@ -65,6 +65,8 @@ const popupAddWithForm = new PopupWithForm(
 
 popupAddWithForm.setEventListener();
 
+const popupWithDelCard = new PopupWithDelCard("#popup__del");
+
 const info = new UserInfo(".profile__name", ".profile__status");
 
 const popupProfileWithForm = new PopupWithForm(
@@ -80,12 +82,16 @@ const popupProfileWithForm = new PopupWithForm(
 
 popupProfileWithForm.setEventListener();
 
-function createClassCard(name, link, likes) {
-  const card = new Card(name, link, likes, "#element", {
+function createClassCard(name, link, likes, userId, cardId) {
+  const card = new Card(name, link, likes, "#element", userId, {
     handleOpenPopupCard: (name, image) => {
       popupCardWithImage.setEventListener();
       popupCardWithImage.open(name, image);
     },
+    handleOpenPopupDelCard: (card) => {
+      popupWithDelCard.setEventListener(card, cardId);
+      popupWithDelCard.open();
+    }
   });
   const cardElement = card.createCard();
 
@@ -132,7 +138,7 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-55/cards', {
         items: res,
         renderer: (items) => {
           items.forEach((item) => {
-            sectionCard.addItemAppend(createClassCard(item.name, item.link, item.likes.length));
+            sectionCard.addItemAppend(createClassCard(item.name, item.link, item.likes.length, item.owner._id, item._id));
           });
         },
       },
@@ -142,15 +148,4 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-55/cards', {
     sectionCard.renderCards();
   })
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-55/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: 'Картавцев Никита',
-    about: 'Жеский программист'
-  })
-});
 
