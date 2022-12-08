@@ -1,4 +1,5 @@
 import Popup from "./Popup.js";
+import { api } from "../../pages/index.js";
 
 export default class PopupWithDelCard extends Popup {
   constructor(popup) {
@@ -11,13 +12,10 @@ export default class PopupWithDelCard extends Popup {
     card.remove();
     card = null;
 
-    fetch(`https://mesto.nomoreparties.co/v1/cohort-55/cards/${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3'
-        }
-      })
+    api.deleteCard(id)
+      .catch((err) => {
+        console.log(err);
+      });
 
     super.close()
   }

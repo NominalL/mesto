@@ -1,7 +1,10 @@
+import { api } from "../../pages/index.js";
+
 export class UserInfo {
-  constructor(name, status) {
+  constructor(name, status, avatar) {
     this._name = document.querySelector(name);
     this._status = document.querySelector(status);
+    this._avatar = document.querySelector(avatar);
   }
 
   getUserInfo() {
@@ -17,16 +20,18 @@ export class UserInfo {
 
     this._status.textContent = inputItems["status-input"];
 
-    fetch('https://mesto.nomoreparties.co/v1/cohort-55/users/me', {
-      method: 'PATCH',
-      headers: {
-        authorization: 'eca7d056-7701-4d08-8699-65b7e7c67df3',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: inputItems["name-input"],
-        about: inputItems["status-input"]
-      })
-    });
+    api.sendProfileInfo(inputItems["name-input"], inputItems["status-input"])
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  setUserAvatar(inputItem) {
+    this._avatar.src = inputItem["avatar-src-input"];
+
+    api.changeAvatar(inputItem["avatar-src-input"])
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

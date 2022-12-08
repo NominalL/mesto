@@ -1,9 +1,12 @@
+import { api } from "../../pages/index.js";
+
 export class Card {
-  constructor(name, image, counter, templateCard, id, { handleOpenPopupCard, handleOpenPopupDelCard }) {
+  constructor(name, image, templateCard, userId, cardId, likes, { handleOpenPopupCard, handleOpenPopupDelCard }) {
     this._name = name;
     this._image = image;
-    this._id = id;
-    this._counterValue = counter;
+    this._userId = userId;
+    this._cardId = cardId;
+    this._likes = likes;
     this._handleOpenPopupCard = handleOpenPopupCard;
     this._handleOpenPopupDelCard = handleOpenPopupDelCard;
     this._templateCard = document.querySelector(templateCard).content;
@@ -23,9 +26,15 @@ export class Card {
 
     this._cardTrash = this._card.querySelector(".element__trash");
 
-    if (this._id != '5bdf4960f51a4bfdb2402408') {
+    if (this._userId != '5bdf4960f51a4bfdb2402408') {
       this._cardTrash.remove();
     }
+
+    this._likes.forEach((user) => {
+      if (user._id === '5bdf4960f51a4bfdb2402408') {
+        this._cardLike.classList.add("element__like_active");
+      }
+    })
 
     this._cardName.textContent = this._name;
 
@@ -33,16 +42,29 @@ export class Card {
 
     this._cardImage.alt = this._name;
 
-    this._cardLikeCounter.textContent = this._counterValue;
+    this._cardLikeCounter.textContent = this._likes.length;
   }
 
   _toggleLikeCardEventCallback() {
     this._cardLike.classList.toggle("element__like_active");
-  }
 
-  _deleteCardEventCallback() {
-    this._card.remove();
-    this._card = null;
+    this._cardLikeCounter.textContent++;
+
+    if (!this._cardLike.classList.contains("element__like_active")) {
+      api.delLike(this._cardId)
+        .catch((err) => {
+          console.log(err);
+        });
+
+      if (this._likes.length === 0) { this._cardLikeCounter.textContent = this._likes.length }
+      else { this._cardLikeCounter.textContent = this._likes.length - 1; }
+
+    } else {
+      api.putLike(this._cardId)
+      .catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   _setEventListenersCard() {
@@ -50,7 +72,7 @@ export class Card {
       this._toggleLikeCardEventCallback();
     });
 
-    if (this._id === '5bdf4960f51a4bfdb2402408') {
+    if (this._userId === '5bdf4960f51a4bfdb2402408') {
       this._cardTrash
         .addEventListener("click", () => {
           this._handleOpenPopupDelCard(this._card);

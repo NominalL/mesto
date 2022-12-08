@@ -6,6 +6,8 @@ export const profileStatus = document.querySelector(".profile__status");
 
 export const profileAvatar = document.querySelector(".profile__avatar");
 
+export const profileAvatarOverlay = document.querySelector(".profile__overlay");
+
 export const popupCardCaption = popupCard.querySelector(".popup__caption-card");
 
 export const popupCardImage = popupCard.querySelector(".popup__image-card");
@@ -28,6 +30,10 @@ export const popupProfileName =
 export const popupProfileStatus = popupProfile.querySelector(
   ".popup__input_status"
 );
+
+export const popupAvatarAdd = document.querySelector('#popup__avatar-add')
+
+export const popupAvatarAddButton = popupAvatarAdd.querySelector(".popup__submit-button");
 
 export const popupProfileForm = popupProfile.querySelector(".popup__form");
 

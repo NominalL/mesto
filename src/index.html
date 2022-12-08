@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
@@ -15,7 +14,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/profile/avatar.jpg" class="profile__avatar" alt="аватарка">
+        <div class="profile__overlay">
+          <img src="./images/profile/avatar.jpg" class="profile__avatar" alt="аватарка">
+          <div class="profile__avatar-edit"></div>
+        </div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -73,6 +75,18 @@
         <img src="#" class="popup__image-card">
         <p class="popup__caption-card"></p>
         <button class="popup__close" type="button"></button>
+      </div>
+    </section>
+    <section class="popup" id="popup__avatar-add">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="popup">
+          <input id="avatar-src-input" type="url" name="avatar-src" placeholder="Ссылка на картинку" value=""
+            class="popup__input popup__input_avatar-src" required>
+          <span class="avatar-src-input-error popup__avatar-src-input-error"></span>
+          <button type="submit" name="add" class="popup__submit-button">Сохранить</button>
+        </form>
       </div>
     </section>
   </div>
