@@ -1,4 +1,4 @@
-import "./index.css";
+//import "./index.css";
 
 import {
   popupProfileForm,
@@ -59,6 +59,9 @@ const popupAddWithForm = new PopupWithForm(
               })
               .catch((err) => {
                 console.log(err);
+              })
+              .finally(() => {
+                renderLoading(false)
               });
           },
         },
@@ -73,9 +76,35 @@ const popupAddWithForm = new PopupWithForm(
 
 popupAddWithForm.setEventListener();
 
-const popupWithDelCard = new PopupWithDelCard("#popup__del");
+const popupWithDelCard = new PopupWithDelCard("#popup__del", {
+  handleDelCard: (id) => {
+    api.deleteCard(id)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+});
 
-const info = new UserInfo(".profile__name", ".profile__status", ".profile__avatar");
+const info = new UserInfo(".profile__name", ".profile__status", ".profile__avatar", {
+  handleSendProfileInfo: (name, status) => {
+    api.sendProfileInfo(name, status)
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        renderLoading(false)
+      })
+  },
+  handleChangeAvatar: (link) => {
+    api.changeAvatar(link)
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        renderLoading(false)
+      })
+  }
+});
 
 const popupProfileWithForm = new PopupWithForm(
   {
@@ -116,6 +145,18 @@ function createClassCard(name, link, userId, cardId, likes) {
     handleOpenPopupDelCard: (card) => {
       popupWithDelCard.setEventListener(card, cardId);
       popupWithDelCard.open();
+    },
+    handlePutLike: () => {
+      api.putLike(cardId)
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleDelLike: () => {
+      api.delLike(cardId)
+        .catch((err) => {
+          console.log(err);
+        });
     }
   });
   const cardElement = card.createCard();
@@ -123,7 +164,7 @@ function createClassCard(name, link, userId, cardId, likes) {
   return cardElement;
 }
 
-export function renderLoading(isLoading) {
+function renderLoading(isLoading) {
   if (isLoading) {
     popupProfileButton.textContent = "Сохранение...";
     popupAddButton.textContent = "Создание...";

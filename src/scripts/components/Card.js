@@ -1,7 +1,5 @@
-import { api } from "../../pages/index.js";
-
 export class Card {
-  constructor(name, image, templateCard, userId, cardId, likes, { handleOpenPopupCard, handleOpenPopupDelCard }) {
+  constructor(name, image, templateCard, userId, cardId, likes, { handleOpenPopupCard, handleOpenPopupDelCard, handlePutLike, handleDelLike }) {
     this._name = name;
     this._image = image;
     this._userId = userId;
@@ -9,6 +7,8 @@ export class Card {
     this._likes = likes;
     this._handleOpenPopupCard = handleOpenPopupCard;
     this._handleOpenPopupDelCard = handleOpenPopupDelCard;
+    this._handlePutLike = handlePutLike;
+    this._handleDelLike = handleDelLike;
     this._templateCard = document.querySelector(templateCard).content;
     this._popupDelCard = document.querySelector("#popup__del");
   }
@@ -51,19 +51,13 @@ export class Card {
     this._cardLikeCounter.textContent++;
 
     if (!this._cardLike.classList.contains("element__like_active")) {
-      api.delLike(this._cardId)
-        .catch((err) => {
-          console.log(err);
-        });
+      this._handleDelLike();
 
       if (this._likes.length === 0) { this._cardLikeCounter.textContent = this._likes.length }
       else { this._cardLikeCounter.textContent = this._likes.length - 1; }
 
     } else {
-      api.putLike(this._cardId)
-      .catch((err) => {
-        console.log(err);
-      });
+      this._handlePutLike();
     }
   }
 
