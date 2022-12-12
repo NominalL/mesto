@@ -3,9 +3,14 @@ import Popup from "./Popup.js";
 export default class PopupWithDelCard extends Popup {
   constructor(popup, { handleDelCard }) {
     super(popup);
-    this._popup = document.querySelector(popup);
     this._popupForm = this._popup.querySelector(".popup__form");
     this._handleDelCard = handleDelCard;
+  }
+
+  open(card, id) {
+    super.open();
+
+    this._submitPopupForm(card, id);
   }
 
   close() {
@@ -15,12 +20,7 @@ export default class PopupWithDelCard extends Popup {
   }
 
   _handleSubmit(card, id) {
-    card.remove();
-    card = null;
-
-    this._handleDelCard(id);
-
-    this.close()
+    this._handleDelCard(id, card);
   }
 
   _submitPopupForm(card, id) {
@@ -31,10 +31,8 @@ export default class PopupWithDelCard extends Popup {
     });
   }
 
-  setEventListener(card, id) {
+  setEventListener() {
     super.setEventListener();
-
-    this._submitPopupForm(card, id);
   }
 }
 

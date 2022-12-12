@@ -1,7 +1,8 @@
 export class Card {
-  constructor(name, image, templateCard, userId, cardId, likes, { handleOpenPopupCard, handleOpenPopupDelCard, handlePutLike, handleDelLike }) {
+  constructor(name, image, templateCard, creatorId, cardId, likes, userId, { handleOpenPopupCard, handleOpenPopupDelCard, handlePutLike, handleDelLike }) {
     this._name = name;
     this._image = image;
+    this._creatorId = creatorId;
     this._userId = userId;
     this._cardId = cardId;
     this._likes = likes;
@@ -10,7 +11,6 @@ export class Card {
     this._handlePutLike = handlePutLike;
     this._handleDelLike = handleDelLike;
     this._templateCard = document.querySelector(templateCard).content;
-    this._popupDelCard = document.querySelector("#popup__del");
   }
 
   _createTemplateCard() {
@@ -26,12 +26,12 @@ export class Card {
 
     this._cardTrash = this._card.querySelector(".element__trash");
 
-    if (this._userId != '5bdf4960f51a4bfdb2402408') {
+    if (this._creatorId != this._userId) {
       this._cardTrash.remove();
     }
 
-    this._likes.forEach((user) => {
-      if (user._id === '5bdf4960f51a4bfdb2402408') {
+    this._likes.forEach((creator) => {
+      if (creator._id === this._userId) {
         this._cardLike.classList.add("element__like_active");
       }
     })
@@ -46,18 +46,10 @@ export class Card {
   }
 
   _toggleLikeCardEventCallback() {
-    this._cardLike.classList.toggle("element__like_active");
-
-    this._cardLikeCounter.textContent++;
-
-    if (!this._cardLike.classList.contains("element__like_active")) {
-      this._handleDelLike();
-
-      if (this._likes.length === 0) { this._cardLikeCounter.textContent = this._likes.length }
-      else { this._cardLikeCounter.textContent = this._likes.length - 1; }
-
+    if (this._cardLike.classList.contains("element__like_active")) {
+      this._handleDelLike(this._cardLike, this._cardLikeCounter);
     } else {
-      this._handlePutLike();
+      this._handlePutLike(this._cardLike, this._cardLikeCounter);
     }
   }
 
@@ -66,7 +58,7 @@ export class Card {
       this._toggleLikeCardEventCallback();
     });
 
-    if (this._userId === '5bdf4960f51a4bfdb2402408') {
+    if (this._creatorId === this._userId) {
       this._cardTrash
         .addEventListener("click", () => {
           this._handleOpenPopupDelCard(this._card);

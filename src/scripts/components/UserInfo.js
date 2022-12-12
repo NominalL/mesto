@@ -1,10 +1,8 @@
 export class UserInfo {
-  constructor(name, status, avatar, { handleSendProfileInfo, handleChangeAvatar }) {
+  constructor(name, status, avatar) {
     this._name = document.querySelector(name);
     this._status = document.querySelector(status);
     this._avatar = document.querySelector(avatar);
-    this._handleChangeAvatar = handleChangeAvatar;
-    this._handleSendProfileInfo = handleSendProfileInfo;
   }
 
   getUserInfo() {
@@ -15,17 +13,18 @@ export class UserInfo {
     return userInfo;
   }
 
-  setUserInfo(inputItems) {
-    this._name.textContent = inputItems["name-input"];
+  setUserInfo(name, status) {
+    this._name.textContent = name;
 
-    this._status.textContent = inputItems["status-input"];
-
-    this._handleSendProfileInfo(inputItems["name-input"], inputItems["status-input"]);
+    this._status.textContent = status;
   }
 
-  setUserAvatar(inputItem) {
-    this._avatar.src = inputItem["avatar-src-input"];
+  setUserAvatar(link) {
+    this._avatar.src = link;
+  }
 
-    this._handleChangeAvatar(inputItem["avatar-src-input"]);
+  setUserId(id) {
+    this.userId = id;
   }
 }
+
