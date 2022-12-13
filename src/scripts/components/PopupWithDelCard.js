@@ -10,29 +10,26 @@ export default class PopupWithDelCard extends Popup {
   open(card, id) {
     super.open();
 
-    this._submitPopupForm(card, id);
+    this._card = card;
+    this._id = id;
   }
 
-  close() {
-    super.close()
-
-    this._popupForm.removeEventListener("submit", this._submit)
+  _handleSubmit() {
+    this._handleDelCard(this._id, this._card);
   }
 
-  _handleSubmit(card, id) {
-    this._handleDelCard(id, card);
-  }
-
-  _submitPopupForm(card, id) {
-    this._popupForm.addEventListener("submit", this._submit = (evt) => {
+  _submitPopupForm() {
+    this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
 
-      this._handleSubmit(card, id);
+      this._handleSubmit();
     });
   }
 
   setEventListener() {
     super.setEventListener();
+
+    this._submitPopupForm();
   }
 }
 

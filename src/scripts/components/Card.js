@@ -45,11 +45,17 @@ export class Card {
     this._cardLikeCounter.textContent = this._likes.length;
   }
 
+  toggleLike(likes) {
+    this._cardLike.classList.toggle("element__like_active");
+
+    this._cardLikeCounter.textContent = likes;
+  }
+
   _toggleLikeCardEventCallback() {
     if (this._cardLike.classList.contains("element__like_active")) {
-      this._handleDelLike(this._cardLike, this._cardLikeCounter);
+      this._handleDelLike(this);
     } else {
-      this._handlePutLike(this._cardLike, this._cardLikeCounter);
+      this._handlePutLike(this);
     }
   }
 

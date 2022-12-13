@@ -13,6 +13,13 @@ export class UserInfo {
     return userInfo;
   }
 
+  setUserProfileInfo(name, status, link, id) {
+    this._name.textContent = name;
+    this._status.textContent = status;
+    this._avatar.src = link;
+    this.userId = id;
+  }
+
   setUserInfo(name, status) {
     this._name.textContent = name;
 

@@ -59,21 +59,19 @@ const sectionCard = new Section(
         handleOpenPopupDelCard: (card) => {
           popupWithDelCard.open(card, item._id);
         },
-        handlePutLike: (likeElement, counter) => {
+        handlePutLike: (card) => {
           api.putLike(item._id)
             .then((res) => {
-              likeElement.classList.toggle("element__like_active");
-              counter.textContent = res.likes.length
+              card.toggleLike(res.likes.length);
             })
             .catch((err) => {
               console.log(err);
             });
         },
-        handleDelLike: (likeElement, counter) => {
+        handleDelLike: (card) => {
           api.delLike(item._id)
             .then((res) => {
-              likeElement.classList.toggle("element__like_active");
-              counter.textContent = res.likes.length
+              card.toggleLike(res.likes.length);
             })
             .catch((err) => {
               console.log(err);
@@ -203,9 +201,7 @@ profileAvatarOverlay.addEventListener("click", () => {
 
 Promise.all([api.setProfileInfo(), api.initialCards()])
   .then(([user, cards]) => {
-    info.setUserInfo(user.name, user.about)
-    info.setUserAvatar(user.avatar)
-    info.setUserId(user._id)
+    info.setUserProfileInfo(user.name, user.about, user.avatar, user._id)
 
     cards.forEach((card) => {
       sectionCard.addItem(card);
